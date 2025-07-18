@@ -2,23 +2,26 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Malla Curricular Medicina</title>
+  <title>Malla Curricular - Medicina</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #fff0f5; padding: 20px; }
-    h1 { text-align: center; color: #8b008b; }
-    .semestre { margin-bottom: 20px; }
-    .semestre h2 { color: #d87093; }
+    body { font-family: Arial, sans-serif; background: #f4f4ff; padding: 10px; }
+    h1 { text-align: center; color: #6a0dad; }
+    .grid { display: grid; grid-template-columns: repeat(14, 1fr); gap: 10px; overflow-x: auto; }
+    .ciclo { background: #c8a2c8; padding: 5px; border-radius: 8px; }
+    .ciclo h2 { font-size: 16px; text-align: center; color: white; }
     .curso {
-      display: inline-block;
-      margin: 5px;
-      padding: 10px;
+      margin: 4px 0;
+      padding: 8px;
       border-radius: 5px;
-      background: #ffe4e1;
+      background: #add8e6;
+      text-align: center;
       cursor: pointer;
+      font-size: 13px;
     }
     .cursado {
-      background: #dda0dd;
+      background: #9370db;
       text-decoration: line-through;
+      color: white;
     }
     .bloqueado {
       background: #d3d3d3;
@@ -28,80 +31,23 @@
   </style>
 </head>
 <body>
-<h1>Malla Curricular Medicina Humana - 14 Semestres</h1>
-<div id="contenedor"></div>
+<h1>Malla Curricular - Medicina Humana</h1>
+<div class="grid" id="contenedor"></div>
+
 <script>
 const cursos = [
-  { ciclo: 1, nombre: "COMPLEMENTOS DE MATEMÁTICA", codigo: "CURSO1", requisitos: [] },
-  { ciclo: 1, nombre: "DESARROLLO DEL TALENTO", codigo: "CURSO2", requisitos: [] },
-  { ciclo: 1, nombre: "FUNDAMENTOS BIOLÓGICOS 1", codigo: "CURSO3", requisitos: [] },
-  { ciclo: 1, nombre: "MORFOLOGÍA Y FISIOLOGÍA CLÍNICA", codigo: "CURSO4", requisitos: [] },
-  { ciclo: 1, nombre: "COMUNICACIÓN 1", codigo: "CURSO5", requisitos: [] },
-  { ciclo: 2, nombre: "INTRODUCCIÓN A LA MEDICINA", codigo: "CURSO6", requisitos: [] },
-  { ciclo: 2, nombre: "HABILIDADES COMUNICATIVAS EN SALUD", codigo: "CURSO7", requisitos: [] },
-  { ciclo: 2, nombre: "GESTIÓN Y BÚSQUEDA DE INFORMACIÓN CIENTÍFICA", codigo: "CURSO8", requisitos: [] },
-  { ciclo: 2, nombre: "FUNDAMENTOS BIOLÓGICOS 2", codigo: "CURSO9", requisitos: [] },
-  { ciclo: 2, nombre: "SISTEMA TEGUMENTARIO", codigo: "CURSO10", requisitos: [] },
-  { ciclo: 3, nombre: "MECANISMOS DE AGRESIÓN Y DEFENSA BIOLÓGICA", codigo: "CURSO11", requisitos: [] },
-  { ciclo: 3, nombre: "DETERMINANTES SOCIALES DE LA SALUD", codigo: "CURSO12", requisitos: [] },
-  { ciclo: 3, nombre: "CIUDADANÍA GLOBAL", codigo: "CURSO13", requisitos: [] },
-  { ciclo: 3, nombre: "HERRAMIENTAS INFORMÁTICAS", codigo: "CURSO14", requisitos: [] },
-  { ciclo: 3, nombre: "SISTEMA CIRCULATORIO", codigo: "CURSO15", requisitos: [] },
-  { ciclo: 4, nombre: "BIOESTADÍSTICA", codigo: "CURSO16", requisitos: [] },
-  { ciclo: 4, nombre: "INMUNIDAD E INFECCIÓN", codigo: "CURSO17", requisitos: [] },
-  { ciclo: 4, nombre: "BASES FARMACOLÓGICAS", codigo: "CURSO18", requisitos: [] },
-  { ciclo: 4, nombre: "RESPONSABILIDAD SOCIAL", codigo: "CURSO19", requisitos: [] },
-  { ciclo: 4, nombre: "SISTEMA ENDOCRINO Y REPRODUCTOR", codigo: "CURSO20", requisitos: [] },
-  { ciclo: 5, nombre: "SISTEMA EXCRETOR", codigo: "CURSO21", requisitos: [] },
-  { ciclo: 5, nombre: "PRÁCTICA MÉDICA INTEGRADA 3", codigo: "CURSO22", requisitos: [] },
-  { ciclo: 5, nombre: "INTEGRACIÓN CLÍNICA PATOLÓGICA 1", codigo: "CURSO23", requisitos: [] },
-  { ciclo: 5, nombre: "EPIDEMIOLOGÍA Y DEMOGRAFÍA", codigo: "CURSO24", requisitos: [] },
-  { ciclo: 5, nombre: "SISTEMA HEMATOPOYÉTICO", codigo: "CURSO25", requisitos: [] },
-  { ciclo: 6, nombre: "SISTEMA LOCOMOTOR", codigo: "CURSO26", requisitos: [] },
-  { ciclo: 6, nombre: "SISTEMA DIGESTIVO", codigo: "CURSO27", requisitos: [] },
-  { ciclo: 6, nombre: "CLÍNICA NUTRICIONAL", codigo: "CURSO28", requisitos: [] },
-  { ciclo: 6, nombre: "PRÁCTICA MÉDICA INTEGRADA 4", codigo: "CURSO29", requisitos: [] },
-  { ciclo: 6, nombre: "METODOLOGÍA DE LA INVESTIGACIÓN", codigo: "CURSO30", requisitos: [] },
-  { ciclo: 7, nombre: "GENÉTICA MÉDICA", codigo: "CURSO31", requisitos: [] },
-  { ciclo: 7, nombre: "SALUD PÚBLICA Y SALUD GLOBAL", codigo: "CURSO32", requisitos: [] },
-  { ciclo: 7, nombre: "INTEGRACIÓN CLÍNICA PATOLÓGICA 2", codigo: "CURSO33", requisitos: [] },
-  { ciclo: 7, nombre: "PRÁCTICA CLÍNICA INTEGRADA 1", codigo: "CURSO34", requisitos: [] },
-  { ciclo: 7, nombre: "PRE BEGINNER 1", codigo: "CURSO35", requisitos: [] },
-  { ciclo: 8, nombre: "ESTRATEGIAS SANITARIAS", codigo: "CURSO36", requisitos: [] },
-  { ciclo: 8, nombre: "TERAPÉUTICA INTEGRADA", codigo: "CURSO37", requisitos: [] },
-  { ciclo: 8, nombre: "INTEGRACIÓN CLÍNICA PATOLÓGICA 3", codigo: "CURSO38", requisitos: [] },
-  { ciclo: 8, nombre: "IMAGENOLOGÍA", codigo: "CURSO39", requisitos: [] },
-  { ciclo: 8, nombre: "PRÁCTICA CLÍNICA INTEGRADA 2", codigo: "CURSO40", requisitos: [] },
-  { ciclo: 9, nombre: "PRE BEGINNER 2", codigo: "CURSO41", requisitos: [] },
-  { ciclo: 9, nombre: "DIAGNÓSTICO COMUNITARIO", codigo: "CURSO42", requisitos: [] },
-  { ciclo: 9, nombre: "PSIQUIATRÍA", codigo: "CURSO43", requisitos: [] },
-  { ciclo: 9, nombre: "ADMINISTRACIÓN DE SERVICIOS DE SALUD", codigo: "CURSO44", requisitos: [] },
-  { ciclo: 9, nombre: "ÉTICA Y BIOÉTICA", codigo: "CURSO45", requisitos: [] },
-  { ciclo: 10, nombre: "PROYECTO SOCIAL", codigo: "CURSO46", requisitos: [] },
-  { ciclo: 10, nombre: "SEMINARIO INTEGRADOR 1", codigo: "CURSO47", requisitos: [] },
-  { ciclo: 10, nombre: "LABORATORIO CLÍNICO", codigo: "CURSO48", requisitos: [] },
-  { ciclo: 10, nombre: "INTERVENCIÓN EN COMUNIDAD", codigo: "CURSO49", requisitos: [] },
-  { ciclo: 10, nombre: "EMERGENCIAS Y DESASTRES", codigo: "CURSO50", requisitos: [] },
-  { ciclo: 11, nombre: "EXTERNADO EN MEDICINA INTERNA", codigo: "CURSO51", requisitos: [] },
-  { ciclo: 11, nombre: "SEMINARIO INTEGRADOR 2", codigo: "CURSO52", requisitos: [] },
-  { ciclo: 11, nombre: "GESTIÓN EN SALUD", codigo: "CURSO53", requisitos: [] },
-  { ciclo: 11, nombre: "EXTERNADO DE GINECOLOGÍA", codigo: "CURSO54", requisitos: [] },
-  { ciclo: 11, nombre: "EXTERNADO EN PEDIATRÍA", codigo: "CURSO55", requisitos: [] },
-  { ciclo: 12, nombre: "SEMINARIO INTEGRADOR 3", codigo: "CURSO56", requisitos: [] },
-  { ciclo: 12, nombre: "EXTERNADO SALUD COMUNITARIA", codigo: "CURSO57", requisitos: [] },
-  { ciclo: 12, nombre: "SEMINARIO INTEGRADOR 4", codigo: "CURSO58", requisitos: [] },
-  { ciclo: 12, nombre: "EXTERNADO EN CIRUGÍA", codigo: "CURSO59", requisitos: [] },
-  { ciclo: 12, nombre: "EXTERNADO DE EMERGENCIAS", codigo: "CURSO60", requisitos: [] },
-  { ciclo: 13, nombre: "PROYECTO DE INVESTIGACIÓN 1", codigo: "CURSO61", requisitos: [] },
-  { ciclo: 13, nombre: "MEDICINA FORENSE Y LEGAL", codigo: "CURSO62", requisitos: [] },
-  { ciclo: 13, nombre: "EXTERNADO DE PSIQUIATRÍA", codigo: "CURSO63", requisitos: [] },
-  { ciclo: 13, nombre: "TALLER INTERPROFESIONAL EN SALUD", codigo: "CURSO64", requisitos: [] },
-  { ciclo: 13, nombre: "PROYECTO DE INVESTIGACIÓN 2", codigo: "CURSO65", requisitos: [] },
-  { ciclo: 14, nombre: "INTERNADO DE MEDICINA", codigo: "CURSO66", requisitos: [] },
-  { ciclo: 14, nombre: "INTERNADO DE CIRUGÍA", codigo: "CURSO67", requisitos: [] },
-  { ciclo: 14, nombre: "INTERNADO DE GINECOLOGÍA OBSTETRICIA", codigo: "CURSO68", requisitos: [] },
-  { ciclo: 14, nombre: "INTERNADO DE PEDIATRÍA", codigo: "CURSO69", requisitos: [] },
-  { ciclo: 14, nombre: "TRABAJO DE INVESTIGACIÓN", codigo: "CURSO70", requisitos: [] },
+  { ciclo: 1, nombre: "COMPLEMENTOS DE MATEMÁTICA", codigo: "MATH1001", requisitos: [] },
+  { ciclo: 1, nombre: "FUNDAMENTOS BIOLÓGICOS 1", codigo: "BIOL1109", requisitos: [] },
+  { ciclo: 1, nombre: "MORFOLOGÍA Y FISIOLOGÍA CLÍNICA", codigo: "MORF1110", requisitos: [] },
+  { ciclo: 1, nombre: "COMUNICACIÓN 1", codigo: "LENG1001", requisitos: [] },
+  { ciclo: 1, nombre: "DESARROLLO DEL TALENTO", codigo: "RRHH1101", requisitos: [] },
+  { ciclo: 2, nombre: "INTRODUCCIÓN A LA MEDICINA", codigo: "HEAL1110", requisitos: ["BIOL1109", "MORF1110", "LENG1001"] },
+  { ciclo: 2, nombre: "HABILIDADES COMUNICATIVAS EN SALUD", codigo: "HUMA1119", requisitos: ["LENG1001"] },
+  { ciclo: 2, nombre: "GESTIÓN DE INFORMACIÓN CIENTÍFICA", codigo: "INVE1102", requisitos: [] },
+  { ciclo: 2, nombre: "FUNDAMENTOS BIOLÓGICOS 2", codigo: "BIOL1110", requisitos: ["MATH1001", "BIOL1109"] },
+  { ciclo: 2, nombre: "SISTEMA TEGUMENTARIO", codigo: "FSLG1102", requisitos: ["BIOL1109", "MORF1110"] },
+  { ciclo: 2, nombre: "SISTEMA NERVIOSO", codigo: "FSLG1101", requisitos: ["BIOL1109", "MORF1110"] },
+  { ciclo: 2, nombre: "PRÁCTICA MÉDICA INTEGRADA 1", codigo: "HEAL1111", requisitos: ["BIOL1109", "MORF1110"] },
 ];
 
 let estado = JSON.parse(localStorage.getItem('estadoCursos')) || {};
@@ -114,23 +60,27 @@ function render() {
   const contenedor = document.getElementById('contenedor');
   contenedor.innerHTML = "";
   for (let i = 1; i <= 14; i++) {
-    const div = document.createElement('div');
-    div.className = 'semestre';
-    div.innerHTML = `<h2>Semestre ${i}</h2>`;
+    const columna = document.createElement('div');
+    columna.className = 'ciclo';
+    const titulo = document.createElement('h2');
+    titulo.textContent = 'Ciclo ' + i;
+    columna.appendChild(titulo);
+
     cursos.filter(c => c.ciclo === i).forEach(curso => {
-      const btn = document.createElement('div');
-      btn.className = 'curso';
-      btn.innerText = curso.nombre;
-      if (estado[curso.codigo]) btn.classList.add('cursado');
-      else if (!puedeCursar(curso)) btn.classList.add('bloqueado');
-      btn.onclick = () => {
+      const div = document.createElement('div');
+      div.className = 'curso';
+      div.textContent = curso.nombre;
+      if (estado[curso.codigo]) div.classList.add('cursado');
+      else if (!puedeCursar(curso)) div.classList.add('bloqueado');
+      div.onclick = () => {
         estado[curso.codigo] = !estado[curso.codigo];
         localStorage.setItem('estadoCursos', JSON.stringify(estado));
         render();
       };
-      div.appendChild(btn);
+      columna.appendChild(div);
     });
-    contenedor.appendChild(div);
+
+    contenedor.appendChild(columna);
   }
 }
 render();
