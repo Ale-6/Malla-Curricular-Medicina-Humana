@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Malla Curricular Medicina Humana - 14 Ciclos</title>
+  <style>
+    body { background-color: #f5f0fa; font-family: sans-serif; }
+    h1 { text-align: center; color: #6a0dad; padding-top: 20px; }
+    .malla { display: flex; gap: 20px; justify-content: center; padding: 20px; overflow-x: auto; }
+    .ciclo {
+      background: #e0bbf5; border-radius: 10px; padding: 10px; width: 200px;
+      flex-shrink: 0; box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    }
+    .ciclo h2 { text-align: center; background: #b388eb; border-radius: 6px; padding: 6px; color: white; }
+    .curso {
+      background: #d0ebff; margin: 6px 0; padding: 8px; border-radius: 5px;
+      text-align: center; cursor: pointer; font-size: 14px;
+    }
+    .bloqueado { background: #ccc; color: #777; cursor: not-allowed; }
+    .aprobado { background: #b197fc; text-decoration: line-through; color: white; }
+  </style>
+</head>
+<body>
+<h1>Malla Curricular - Medicina Humana (14 Ciclos)</h1>
+<div class="malla" id="malla"></div>
+
+<script>
+const malla = [
+  { ciclo: 1, cursos: ["COMPLEMENTO DE MATEMÁTICA", "FUNDAMENTOS BIOLÓGICOS 1", "MORFOLOGÍA Y FISIOLOGÍA CLÍNICA", "COMUNICACIÓN 1", "DESARROLLO DEL TALENTO"] },
+  { ciclo: 2, cursos: ["INTRODUCCIÓN A LA MEDICINA", "HABILIDADES COMUNICATIVAS EN SALUD", "GESTIÓN DE INFORMACIÓN CIENTÍFICA", "FUNDAMENTOS BIOLÓGICOS 2", "SISTEMA TEGUMENTARIO", "SISTEMA NERVIOSO", "EJE ENDOCRINO"] },
+  { ciclo: 3, cursos: ["SISTEMA MUSCULOESQUELÉTICO", "SISTEMA CARDIOVASCULAR", "SISTEMA RESPIRATORIO", "SISTEMA DIGESTIVO", "SISTEMA URINARIO", "SISTEMA REPRODUCTOR", "BIOÉTICA"] },
+  { ciclo: 4, cursos: ["BIOQUÍMICA", "MICROBIOLOGÍA", "INMUNOLOGÍA", "GENÉTICA", "PATOLOGÍA GENERAL", "SALUD PÚBLICA", "ÉTICA Y SOCIEDAD"] },
+  { ciclo: 5, cursos: ["FARMACOLOGÍA GENERAL", "FISIOPATOLOGÍA", "SALUD AMBIENTAL", "EPIDEMIOLOGÍA", "SEMIOLÓGICA 1", "PRÁCTICA COMUNITARIA", "PRACTICA CLÍNICA 1"] },
+  { ciclo: 6, cursos: ["SEMIOLÓGICA 2", "PATOLOGÍA SISTEMÁTICA", "FARMACOLOGÍA SISTEMÁTICA", "TERAPÉUTICA", "BIOESTADÍSTICA", "PRÁCTICA CLÍNICA 2"] },
+  { ciclo: 7, cursos: ["MEDICINA INTERNA 1", "CIRUGÍA GENERAL 1", "PEDIATRÍA 1", "GINECOBSTETRICIA 1", "PSIQUIATRÍA 1", "PRÁCTICA CLÍNICA 3"] },
+  { ciclo: 8, cursos: ["MEDICINA INTERNA 2", "CIRUGÍA GENERAL 2", "PEDIATRÍA 2", "GINECOBSTETRICIA 2", "PSIQUIATRÍA 2", "URGENCIAS MÉDICAS", "PRÁCTICA CLÍNICA 4"] },
+  { ciclo: 9, cursos: ["EMERGENCIAS Y DESASTRES", "IMAGENOLOGÍA", "ANESTESIOLOGÍA", "DERMATOLOGÍA", "PRÁCTICA CLÍNICA 5"] },
+  { ciclo: 10, cursos: ["INTERNADO DE MEDICINA INTERNA", "INTERNADO DE CIRUGÍA", "INTERNADO DE PEDIATRÍA", "INTERNADO DE GINECOBSTETRICIA"] },
+  { ciclo: 11, cursos: ["INTERNADO DE MEDICINA FAMILIAR", "INTERNADO DE PSIQUIATRÍA", "INTERNADO DE SALUD PÚBLICA", "PRÁCTICA FINAL 1"] },
+  { ciclo: 12, cursos: ["PRÁCTICA FINAL 2", "PRÁCTICA FINAL 3", "PRÁCTICA FINAL 4", "PRÁCTICA FINAL 5"] },
+  { ciclo: 13, cursos: ["TESIS 1", "INVESTIGACIÓN EN SALUD"] },
+  { ciclo: 14, cursos: ["TESIS 2", "EXAMEN NACIONAL", "CURSO DE ACTUALIZACIÓN"] }
+];
+
+const estado = JSON.parse(localStorage.getItem("estadoMalla") || "{}");
+
+function render() {
+  const cont = document.getElementById("malla");
+  cont.innerHTML = "";
+  malla.forEach(({ ciclo, cursos }) => {
+    const col = document.createElement("div");
+    col.className = "ciclo";
+    const h = document.createElement("h2");
+    h.textContent = "Ciclo " + ciclo;
+    col.appendChild(h);
+    cursos.forEach(nombre => {
+      const div = document.createElement("div");
+      div.className = "curso";
+      div.textContent = nombre;
+      const aprobado = estado[nombre];
+      if (aprobado) div.classList.add("aprobado");
+      div.onclick = () => {
+        estado[nombre] = !estado[nombre];
+        localStorage.setItem("estadoMalla", JSON.stringify(estado));
+        render();
+      };
+      col.appendChild(div);
+    });
+    cont.appendChild(col);
+  });
+}
+render();
+</script>
+</body>
+</html>
